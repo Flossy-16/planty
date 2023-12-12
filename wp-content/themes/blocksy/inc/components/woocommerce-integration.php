@@ -46,6 +46,7 @@ add_filter(
 		$classes['WooCommerceImageSizes'] = $prefix . 'common/image-sizes.php';
 
 		$classes['WooCommerceSingle'] = $prefix . 'single/single.php';
+		$classes['WooCommerceAddToCart'] = $prefix . 'single/add-to-cart.php';
 		$classes['SingleProductAdditionalActions'] = $prefix . 'single/additional-actions-layer.php';
 
 		return $classes;

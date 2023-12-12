@@ -27,5 +27,9 @@ class Database {
 		/** This filter is documented in wp-includes/theme.php */
 		return apply_filters("theme_mod_{$name}", $value);
 	}
+
+	public function wipe_cache() {
+		$this->mods = '__EMPTY__';
+	}
 }
 

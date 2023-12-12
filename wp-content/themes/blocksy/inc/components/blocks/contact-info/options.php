@@ -551,10 +551,10 @@ $options = [
 		'view' => 'text',
 		'design' => 'block',
 		'divider' => 'top:full',
-		'value' => 'vertical',
+		'value' => 'column',
 		'choices' => [
-			'vertical' => __( 'Vertical', 'blocksy' ),
-			'horizontal' => __( 'Horizontal', 'blocksy' ),
+			'column' => __( 'Vertical', 'blocksy' ),
+			'row' => __( 'Horizontal', 'blocksy' ),
 		],
 		'setting' => [ 'transport' => 'postMessage' ],
 	],

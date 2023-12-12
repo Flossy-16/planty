@@ -7,6 +7,8 @@ class WooCommerceSingle {
 
 	public function __construct() {
 		$this->additional_actions = new SingleProductAdditionalActions();
+
+		new WooCommerceAddToCart();
 	}
 
 	public function render_layout($args = []) {

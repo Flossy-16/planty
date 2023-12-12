@@ -99,6 +99,10 @@ class Colors {
 				$variableName = $value['variable'];
 			}
 
+			if (! $value) {
+				$value = $args['default'][$key];
+			}
+
 			$result[$key] = [
 				'id' => $key,
 				'slug' => 'palette-color-' . str_replace('color', '', $key),

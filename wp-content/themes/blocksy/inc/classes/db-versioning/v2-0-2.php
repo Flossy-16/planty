@@ -63,7 +63,7 @@ class V202 {
 		$did_update = false;
 
 		foreach ($value as $key => $item) {
-			if (! isset($colorPalette[$key])) {
+			if (! isset($colorPalette[$key]) || ! $colorPalette[$key]) {
 				$did_update = true;
 				$colorPalette[$key] = $item;
 			}

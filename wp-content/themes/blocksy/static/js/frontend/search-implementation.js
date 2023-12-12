@@ -15,7 +15,7 @@ const decodeHTMLEntities = (string) => {
 
 const store = {}
 
-const cachedFetch = (url) =>
+const cachedFetch = (url, nonce = '') =>
 	store[url]
 		? new Promise((resolve) => {
 				resolve(store[url])
@@ -24,8 +24,7 @@ const cachedFetch = (url) =>
 		: new Promise((resolve) =>
 				fetch(url, {
 					headers: {
-						'X-WP-Nonce':
-							document.querySelector('[name="wp_rest"]').value,
+						'X-WP-Nonce': nonce,
 					},
 				}).then((response) => {
 					resolve(response)
@@ -224,7 +223,11 @@ export const mount = (formEl, args = {}) => {
 		cachedFetch(
 			`${ct_localizations.rest_url}wp/v2/posts${
 				ct_localizations.rest_url.indexOf('?') > -1 ? '&' : '?'
-			}${params.toString()}`
+			}${params.toString()}`,
+
+			formEl.querySelector('.ct-live-results-nonce')
+				? formEl.querySelector('.ct-live-results-nonce').value
+				: ''
 		).then((response) => {
 			let totalAmountOfPosts = parseInt(
 				response.headers.get('X-WP-Total'),

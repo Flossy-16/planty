@@ -9,11 +9,11 @@
 
  if (!function_exists('blocksy_reqursive_taxonomy')) {
 	function blocksy_reqursive_taxonomy($tax, $parent_term_id, $level, $selected_cat) {
-	
+
 		if (! $parent_term_id) {
 			return [];
 		}
-		
+
 		$terms = get_terms([
 			'taxonomy' => $tax,
 			'hide_empty' => true,
@@ -32,7 +32,7 @@
 
 			$prefix = '&nbsp;&nbsp;&nbsp;';
 
-			for ($i=0; $i < $level; $i++) { 
+			for ($i=0; $i < $level; $i++) {
 				$prefix .= '&nbsp;&nbsp;&nbsp;';
 			}
 
@@ -140,7 +140,10 @@ if (
 	$class_output = 'class="modal-field"';
 }
 
-$home_url = home_url('/');
+$home_url = apply_filters(
+	'blocksy:search-form:home-url',
+	home_url('/')
+);
 
 $icon = apply_filters(
 	'blocksy:search-form:icon',
@@ -357,9 +360,18 @@ $button_html_atts = array_merge(
 			<input type="hidden" name="ct_product_status" value="<?php echo $show_product_status || is_customize_preview(); ?>">
 		<?php } ?>
 
-		<?php if ($has_live_results === 'yes') {
-			wp_nonce_field('wp_rest', 'wp_rest', false);
-		} ?>
+		<?php
+			if ($has_live_results === 'yes') {
+				echo blocksy_html_tag(
+					'input',
+					[
+						'type' => 'hidden',
+						'value' => wp_create_nonce('wp_rest'),
+						'class' => 'ct-live-results-nonce'
+					]
+				);
+			}
+		?>
 	</div>
 
 	<?php if ($has_live_results === 'yes') { ?>

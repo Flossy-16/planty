@@ -106,7 +106,6 @@ class Blocksy_Customizer_Builder {
 			}
 		}
 
-
 		foreach ($all_items as $item) {
 			if ($item) {
 				if (
@@ -116,7 +115,6 @@ class Blocksy_Customizer_Builder {
 				) {
 					continue;
 				}
-
 
 				if (! file_exists($item['path'] . '/dynamic-styles.php')) {
 					continue;
@@ -157,6 +155,7 @@ class Blocksy_Customizer_Builder {
 					array_merge([
 						'section_id' => $args['section_id'],
 						'row_id' => $row_id,
+						'panel_type' => $args['panel_type'],
 						'path' => $item['path'] . '/dynamic-styles.php',
 						'root_selector' => $render->get_root_selector($item),
 						'root_selector_header' => $render->get_root_selector(),

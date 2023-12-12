@@ -1,5 +1,6 @@
 import ctEvents from 'ct-events'
 import { isTouchDevice } from './frontend/helpers/is-touch-device'
+import { isIosDevice } from './frontend/helpers/is-ios-device'
 import $ from 'jquery'
 
 const loadSingleEntryPoint = ({
@@ -211,7 +212,11 @@ const loadSingleEntryPoint = ({
 				el.hasLazyLoadClickHoverListener = true
 
 				const l = (event) => {
-					event.preventDefault()
+					// iOS devices will prevent the click by default, no need
+					// to prevent it manually
+					if (!isIosDevice()) {
+						event.preventDefault()
+					}
 
 					load().then((arg) =>
 						mount({

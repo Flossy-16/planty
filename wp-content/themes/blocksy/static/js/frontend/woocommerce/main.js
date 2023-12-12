@@ -13,6 +13,8 @@ function isTouchDevice() {
 	}
 }
 
+console.log('here only hover')
+
 export const wooEntryPoints = [
 	{
 		els: 'body.single-product .woocommerce-product-gallery',

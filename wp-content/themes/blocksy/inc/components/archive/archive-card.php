@@ -35,7 +35,7 @@ if (! function_exists('blocksy_render_archive_card')) {
 
 		if ($card_render) {
 			$entry_open = '<article';
-			$entry_open .= ' id="post-' . get_the_ID() . '"';
+			// $entry_open .= ' id="post-' . get_the_ID() . '"';
 			$entry_open .= ' class="' . esc_attr(implode(' ', get_post_class($card_render['has_default_layout'] ? 'entry-card' : ''))) . '"';
 			$entry_open .= ' ' . wp_kses_post($data_reveal_output);
 			$entry_open .= '>';
@@ -292,7 +292,7 @@ if (! function_exists('blocksy_render_archive_card')) {
 		}
 
 		$entry_open = '<article';
-		$entry_open .= ' id="post-' . get_the_ID() . '"';
+		// $entry_open .= ' id="post-' . get_the_ID() . '"';
 		$entry_open .= ' class="' . esc_attr(implode(' ', get_post_class('entry-card'))) . '"';
 		$entry_open .= ' ' . wp_kses_post($data_reveal_output);
 		$entry_open .= '>';

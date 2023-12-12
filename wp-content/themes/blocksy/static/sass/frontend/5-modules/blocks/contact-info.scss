@@ -3,6 +3,8 @@
 
 	ul {
 		display: flex;
+		flex-direction: var(--items-direction, row);
+		flex-wrap: wrap;
 		gap: var(--items-spacing, 15px);
 
 		align-items: var(--horizontal-alignment); // when placed in widget area
@@ -29,14 +31,5 @@
 
 	.contact-title {
 		font-weight: 600;
-	}
-
-	// items direction
-	[data-items-direction="horizontal"] {
-		flex-wrap: wrap;
-	}
-
-	[data-items-direction="vertical"] {
-		flex-direction: column;
 	}
 }

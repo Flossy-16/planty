@@ -36,11 +36,13 @@ const Edit = ({
 	setBorderHoverColor,
 }) => {
 	const {
+		contacts_items_direction = 'column',
 		contacts_icons_size = 20,
 		contacts_items_spacing = '',
 		contacts_icon_shape = 'rounded',
 		contacts_icon_fill_type = 'outline',
 	} = attributes
+
 	const navRef = useRef()
 
 	const blockProps = useBlockProps({
@@ -71,6 +73,11 @@ const Edit = ({
 			...(contacts_items_spacing
 				? {
 						'--items-spacing': `${contacts_items_spacing}px`,
+				  }
+				: {}),
+			...(contacts_items_direction === 'column'
+				? {
+						'--items-direction': contacts_items_direction,
 				  }
 				: {}),
 		},

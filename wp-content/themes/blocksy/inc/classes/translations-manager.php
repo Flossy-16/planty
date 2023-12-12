@@ -13,6 +13,49 @@ class Blocksy_Translations_Manager {
 				[$this, 'register_translation_keys']
 			);
 		}
+
+		add_action(
+			'init',
+			function () {
+				if (! class_exists('PLL_Translate_Option')) {
+					return;
+				}
+
+				$prefixes = blocksy_manager()->screen->get_single_prefixes();
+
+				$all_keys = [];
+
+				foreach ($prefixes as $prefix) {
+					if (
+						$prefix === 'single_blog_post'
+						||
+						$prefix === 'single_page'
+					) {
+						continue;
+					}
+
+					$related_label = blocksy_get_theme_mod(
+						$prefix . '_related_label',
+						'__empty__'
+					);
+
+					if ($related_label === '__empty__') {
+						continue;
+					}
+
+					$all_keys[$prefix . '_related_label'] = 1;
+				}
+
+				if (empty($all_keys)) {
+					return;
+				}
+
+				new PLL_Translate_Option('theme_mods_blocksy', $all_keys);
+				new PLL_Translate_Option('theme_mods_blocksy-child', $all_keys);
+
+				blocksy_manager()->db->wipe_cache();
+			}
+		);
 	}
 
 	public function get_all_translation_keys() {
@@ -126,6 +169,10 @@ class Blocksy_Translations_Manager {
 		$builder_keys = $this->get_all_translation_keys();
 
 		foreach ($builder_keys as $single_key) {
+			if (! is_string($single_key['value'])) {
+				continue;
+			}
+
 			do_action(
 				'wpml_register_single_string',
 				'Blocksy',

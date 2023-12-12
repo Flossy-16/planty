@@ -59,7 +59,7 @@ class LegacyWidgetsContactInfoTransformer {
 				'contacts_items_spacing' => '',
 				'contacts_icon_shape' => 'rounded',
 				'contacts_icon_fill_type' => 'outline',
-				'contacts_items_direction' => 'vertical',
+				'contacts_items_direction' => 'column',
 			],
 			$options
 		);

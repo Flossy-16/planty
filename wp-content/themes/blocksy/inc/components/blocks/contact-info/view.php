@@ -49,7 +49,6 @@ $content = blc_get_contacts_output(
 		),
 		'type' => $type,
 		'fill' => $fill,
-		'direction' => blocksy_akg('contacts_items_direction', $atts, 'vertical'),
 		'link_icons' => blocksy_akg('link_icons', $atts, 'no'),
 	]
 );
@@ -154,6 +153,10 @@ $items_spacing = blocksy_akg('contacts_items_spacing', $atts, '');
 
 if (! empty($items_spacing)) {
 	$style .= '--items-spacing:' . $items_spacing . 'px;';
+}
+
+if (blocksy_default_akg('contacts_items_direction', $atts, 'column') === 'column') {
+	$style .= '--items-direction:' . blocksy_default_akg('contacts_items_direction', $atts, 'column') . ';';
 }
 
 echo blocksy_html_tag(

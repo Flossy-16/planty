@@ -189,6 +189,11 @@ class DbVersioning {
 			[
 				'version' => '2.0.3',
 				'cb' => [new DbVersioning\V203(), 'migrate']
+			],
+
+			[
+				'version' => '2.0.9',
+				'cb' => [new DbVersioning\V209(), 'migrate']
 			]
 		];
 	}

@@ -645,5 +645,8 @@ Blocksy_Manager::instance();
 
 // Just temporary stub
 class Blocksy_Fonts_Manager {
+	public function get_googgle_fonts() {
+		return [];
+	}
 }
 

@@ -1,40 +1,67 @@
 <?php
 
-add_action(
-	'woocommerce_before_add_to_cart_form',
-	function () {
+namespace Blocksy;
+
+class WooCommerceAddToCart {
+	private $actions = [
+		[
+			'action' => 'woocommerce_before_add_to_cart_form',
+			'priority' => 10
+		],
+
+		[
+			'action' => 'woocommerce_before_add_to_cart_quantity',
+			'priority' => PHP_INT_MAX
+		],
+
+		[
+			'action' => 'woocommerce_before_add_to_cart_button',
+			'priority' => PHP_INT_MAX
+		],
+
+		[
+			'action' => 'woocommerce_after_add_to_cart_button',
+			'priority' => 100
+		],
+
+		[
+			'action' => 'woocommerce_post_class',
+			'priority' => 10
+		]
+	];
+
+	public function __construct() {
+		$this->attach_actions();
+	}
+
+	public function attach_actions() {
+		foreach ($this->actions as $action) {
+			add_action(
+				$action['action'],
+				[$this, $action['action']],
+				isset($action['priority']) ? $action['priority'] : 10
+			);
+		}
+	}
+
+	public function detach_actions() {
+		foreach ($this->actions as $action) {
+			remove_action(
+				$action['action'],
+				[$this, $action['action']],
+				isset($action['priority']) ? $action['priority'] : 10
+			);
+		}
+	}
+
+	public function woocommerce_before_add_to_cart_form() {
 		global $product;
 		global $root_product;
 
 		$root_product = $product;
 	}
-);
 
-
-if (! function_exists('blocksy_woo_output_cart_action_open')) {
-	function blocksy_woo_output_cart_action_open() {
-		$attr = [
-			'class' => 'ct-cart-actions'
-		];
-
-		if (
-			(is_product() || wp_doing_ajax())
-			&&
-			! blocksy_manager()->screen->uses_woo_default_template()
-		) {
-			$attr['class'] = 'ct-cart-actions-builder';
-			return;
-		}
-
-		$attr = apply_filters('blocksy:woocommerce:cart-actions:attr', $attr);
-
-		echo '<div ' . blocksy_attr_to_html($attr) . '>';
-	}
-}
-
-add_action(
-	'woocommerce_before_add_to_cart_quantity',
-	function () {
+	public function woocommerce_before_add_to_cart_quantity() {
 		global $product;
 		global $root_product;
 
@@ -56,14 +83,10 @@ add_action(
 			return;
 		}
 
-		blocksy_woo_output_cart_action_open();
-	},
-	PHP_INT_MAX
-);
+		$this->output_cart_action_open();
+	}
 
-add_action(
-	'woocommerce_before_add_to_cart_button',
-	function () {
+	public function woocommerce_before_add_to_cart_button() {
 		global $product;
 		global $root_product;
 
@@ -79,14 +102,10 @@ add_action(
 			return;
 		}
 
-		blocksy_woo_output_cart_action_open();
-	},
-	PHP_INT_MAX
-);
+		$this->output_cart_action_open();
+	}
 
-add_action(
-	'woocommerce_after_add_to_cart_button',
-	function () {
+	public function woocommerce_after_add_to_cart_button() {
 		global $product;
 
 		if (! $product) {
@@ -125,90 +144,104 @@ add_action(
 			return;
 		}
 
+		echo '</div>';
+
+		$this->detach_actions();
+	}
+
+	public function woocommerce_post_class($classes) {
+		global $product;
+		global $woocommerce_loop;
+
+		$default_product_layout = blocksy_get_woo_single_layout_defaults();
+
+		$layout = blocksy_get_theme_mod(
+			'woo_single_layout',
+			blocksy_get_woo_single_layout_defaults()
+		);
+
+		$layout = blocksy_normalize_layout(
+			$layout,
+			$default_product_layout
+		);
+
+		$product_view_type = blocksy_get_product_view_type();
+
+		if (
+			$product_view_type === 'top-gallery'
+			||
+			$product_view_type === 'columns-top-gallery'
+		) {
+			$woo_single_split_layout = blocksy_get_theme_mod(
+				'woo_single_split_layout',
+				[
+					'left' => blocksy_get_woo_single_layout_defaults('left'),
+					'right' => blocksy_get_woo_single_layout_defaults('right')
+				]
+			);
+
+			$layout = array_merge(
+				$woo_single_split_layout['left'],
+				$woo_single_split_layout['right']
+			);
+		}
+
+		$add_to_cart_layer = array_values(array_filter($layout, function($k) {
+			return $k['id'] === 'product_add_to_cart';
+		}));
+
+		if (
+			empty($add_to_cart_layer)
+			||
+			! $product
+			||
+			$product->is_type('external')
+			||
+			$woocommerce_loop['name'] === 'related'
+			||
+			(
+				! is_product()
+				&&
+				! wp_doing_ajax()
+			)
+		) {
+			return $classes;
+		}
+
+		$has_ajax_add_to_cart = blocksy_get_theme_mod(
+			'has_ajax_add_to_cart',
+			'no'
+		);
+
+		if (
+			$has_ajax_add_to_cart === 'yes'
+			&&
+			get_option('woocommerce_cart_redirect_after_add', 'no') === 'no'
+		) {
+			$classes[] = 'ct-ajax-add-to-cart';
+		}
+
+		return $classes;
+	}
+
+	private function output_cart_action_open() {
+		$attr = [
+			'class' => 'ct-cart-actions'
+		];
+
 		if (
 			(is_product() || wp_doing_ajax())
 			&&
 			! blocksy_manager()->screen->uses_woo_default_template()
 		) {
+			$attr['class'] = 'ct-cart-actions-builder';
 			return;
 		}
 
-		echo '</div>';
-	},
-	100
-);
+		$attr = apply_filters('blocksy:woocommerce:cart-actions:attr', $attr);
 
-add_action('woocommerce_post_class', function ($classes) {
-	global $product;
-	global $woocommerce_loop;
-
-	$default_product_layout = blocksy_get_woo_single_layout_defaults();
-	
-	$layout = blocksy_get_theme_mod(
-		'woo_single_layout',
-		blocksy_get_woo_single_layout_defaults()
-	);
-
-	$layout = blocksy_normalize_layout(
-		$layout,
-		$default_product_layout
-	);
-
-	$product_view_type = blocksy_get_product_view_type();
-
-	if (
-		$product_view_type === 'top-gallery'
-		||
-		$product_view_type === 'columns-top-gallery'
-	) {
-		$woo_single_split_layout = blocksy_get_theme_mod(
-			'woo_single_split_layout',
-			[
-				'left' => blocksy_get_woo_single_layout_defaults('left'),
-				'right' => blocksy_get_woo_single_layout_defaults('right')
-			]
-		);
-
-		$layout = array_merge(
-			$woo_single_split_layout['left'],
-			$woo_single_split_layout['right']
-		);
+		echo '<div ' . blocksy_attr_to_html($attr) . '>';
 	}
+}
 
-	$add_to_cart_layer = array_values(array_filter($layout, function($k) {
-		return $k['id'] === 'product_add_to_cart';
-	}));
 
-	if (
-		empty($add_to_cart_layer)
-		||
-		! $product
-		||
-		$product->is_type('external')
-		||
-		$woocommerce_loop['name'] === 'related'
-		||
-		(
-			! is_product()
-			&&
-			! wp_doing_ajax()
-		)
-	) {
-		return $classes;
-	}
-
-	$has_ajax_add_to_cart = blocksy_get_theme_mod(
-		'has_ajax_add_to_cart',
-		'no'
-	);
-
-	if (
-		$has_ajax_add_to_cart === 'yes'
-		&&
-		get_option('woocommerce_cart_redirect_after_add', 'no') === 'no'
-	) {
-		$classes[] = 'ct-ajax-add-to-cart';
-	}
-
-	return $classes;
-}, 10, 2);

@@ -66,7 +66,8 @@ export const mount = (el, { event: mountEvent }) => {
 			items.length === 1 &&
 			items[0].img &&
 			items[0].img.closest('a') &&
-			!items[0].img.closest('a').getAttribute('data-src')
+			!items[0].img.closest('a').getAttribute('data-src') &&
+			items[0].img.title === 'woocommerce-placeholder'
 		) {
 			return
 		}

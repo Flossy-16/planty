@@ -13,7 +13,7 @@ const OVERWRITE_ATTRIBUTES = {
 	contacts_icon_fill_type: 'outline',
 	contact_link_target: 'no',
 	contact_text: '',
-	contacts_items_direction: 'vertical',
+	contacts_items_direction: 'column',
 	link_icons: 'no',
 
 	...colors,
@@ -26,7 +26,7 @@ const Preview = ({ attributes }) => {
 		contacts_icon_shape = 'rounded',
 		contacts_icon_fill_type = 'outline',
 		contact_link_target = 'no',
-		contacts_items_direction = 'vertical',
+		contacts_items_direction = 'column',
 	} = attributes
 
 	const formatContent = useCallback(
@@ -79,8 +79,6 @@ const Preview = ({ attributes }) => {
 					? contacts_icon_shape
 					: `${contacts_icon_shape}:${contacts_icon_fill_type}`
 			}
-			data-items-direction={contacts_items_direction}
-			preview
 			dangerouslySetInnerHTML={{
 				__html: preview,
 			}}

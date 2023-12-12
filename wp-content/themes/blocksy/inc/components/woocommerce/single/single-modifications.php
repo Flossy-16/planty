@@ -179,6 +179,15 @@ add_action($action_to_hook, function () {
 		'woocommerce_before_single_product',
 		function() {
 			blocksy_manager()->get_hooks()->redirect_callbacks([
+				'token' => 'single_product_before_title',
+				'source' => ['woocommerce_single_product_summary'],
+				'destination' => 'blocksy:woocommerce:product-single:title:before',
+
+				'priority_min' => 2,
+				'priority_max' => 4
+			]);
+			
+			blocksy_manager()->get_hooks()->redirect_callbacks([
 				'token' => 'single_product_after_title',
 				'source' => ['woocommerce_single_product_summary'],
 				'destination' => 'blocksy:woocommerce:product-single:title:after',
