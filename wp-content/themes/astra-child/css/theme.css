@@ -1,0 +1,91 @@
+/* MISE EN PAGE GENERALE*/
+
+/* supprimer marge supérieure */
+.ast-single-post.ast-page-builder-template .site-main > article, .woocommerce.ast-page-builder-template .site-main {
+    padding:0;
+}
+
+/* supprimer marges doite et gauche */
+.ast-plain-container.ast-no-sidebar #primary {
+    margin:0;
+}
+
+
+
+/* HEADER */
+
+/* supprimer marges doite et gauche */
+#masthead .ast-container, .site-header-focus-item + .ast-breadcrumbs-wrapper {
+    padding: 0;
+}
+
+/* Effet de survol sur menu principal */
+.ast-builder-menu .main-navigation:hover {
+    font-weight: 700;
+    font-size: 13px;
+}
+
+/* Effet page active sur menu principal */
+.ast-builder-menu-1 .menu-item.current-menu-item > .menu-link, .ast-builder-menu-1 .inline-on-mobile .menu-item.current-menu-item > .ast-menu-toggle, .ast-builder-menu-1 .current-menu-ancestor > .menu-link:focus {
+    font-weight: 700;
+    font-size: 13px;
+}
+
+
+/* NOUS RENCONTRER */
+
+/* formulaire de contact */
+
+.wpcf7 input, .wpcf7 textarea {
+    border-radius: 7px;
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.04);
+
+}
+
+.bouton-formulaire {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px; 
+}
+
+.wpcf7-spinner {
+    display: none;
+}
+
+/* COMMANDER */
+
+b, strong {
+    font-weight: 800;
+}
+
+/* formulaire quantités à commander */
+.wpcf7-number {
+    text-align: center;
+}
+
+.quantite {
+    padding-left: 35%;
+    padding-right: 35%;  
+}
+
+
+/* formulaire de commande */
+.deux-colonnes {
+    display: flex;
+    flex-direction: row;
+    column-gap: 50px;
+}
+
+h3.titre-formulaire {
+    color: white;
+}
+
+div.colonne2 {
+    border-left: solid white 1px;
+    padding-left: 50px;
+}
+
+.label-formulaire {
+    color:white;
+}
+

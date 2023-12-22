@@ -1,0 +1,41 @@
+
+/* COPIE DES FORMULAIRES CF7 POUR SAUVEGARDE */
+
+
+/* FORMULAIRE DE CONTACT */
+<label> Nom
+    [text* your-name autocomplete:name] </label>
+
+<label> E-mail
+    [email* your-email autocomplete:email] </label>
+
+<label> Message
+    [textarea* your-message] </label>
+
+<p class="bouton-formulaire">[submit "Envoyer"]</p>
+
+
+
+/* FORMULAIRE DE QUANTITE */
+
+
+
+
+/* FORMULAIRE DE COMMANDE */
+<div class="deux-colonnes">
+  <div class="colonne1">
+    <h3 class="titre-formulaire">Vos Informations</h3>
+    <label class="label-formulaire">Nom [text nom] </label>
+    <label class="label-formulaire">Prénom [text prenom] </label>
+    <label class="label-formulaire"> E-mail [email email] </label>
+  </div>
+  
+  <div class="colonne2">
+    <h3 class="titre-formulaire">Livraison</h3>
+    <label class="label-formulaire"> Adresse de livraison [text adresse] </label>
+    <label class="label-formulaire"> Code postal [number code-postal] </label>
+    <label class="label-formulaire"> Ville [text ville] </label>
+  </div>
+</div>
+  
+<p class="bouton-formulaire">[submit "Commander"]</p>
