@@ -23,3 +23,19 @@ function theme_enqueue_styles() {
 }
 
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles', 15 );
+
+
+/* HOOK admin */
+
+// Fonction pour ajouter le lien "Admin" dans le menu
+function add_admin_link($items, $args) {
+    // Vérifie si l'utilisateur est connecté 
+    if (is_user_logged_in()) {
+        $items .= '<li><a href="' . get_admin_url() . '">Admin</a></li>';
+    }
+    return $items;
+}
+
+// Hook pour ajouter le lien "Admin" dans le menu
+add_filter( 'wp_nav_menu_items', 'add_admin_link', 10, 2 );
+

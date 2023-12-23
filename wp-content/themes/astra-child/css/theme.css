@@ -5,7 +5,7 @@
     padding:0;
 }
 
-/* supprimer marges doite et gauche */
+/* supprimer marges droite et gauche */
 .ast-plain-container.ast-no-sidebar #primary {
     margin:0;
 }
@@ -25,8 +25,14 @@
     font-size: 13px;
 }
 
+
 /* Effet page active sur menu principal */
 .ast-builder-menu-1 .menu-item.current-menu-item > .menu-link, .ast-builder-menu-1 .inline-on-mobile .menu-item.current-menu-item > .ast-menu-toggle, .ast-builder-menu-1 .current-menu-ancestor > .menu-link:focus {
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.ast-builder-menu-1 .menu-item:hover > .menu-link, .ast-builder-menu-1 .inline-on-mobile .menu-item:hover > .ast-menu-toggle {
     font-weight: 700;
     font-size: 13px;
 }
@@ -45,7 +51,8 @@
 .bouton-formulaire {
     display: flex;
     justify-content: center;
-    margin-top: 50px; 
+    margin-top: 50px;
+    padding-top: 25px; 
 }
 
 .wpcf7-spinner {
@@ -87,5 +94,9 @@ div.colonne2 {
 
 .label-formulaire {
     color:white;
+}
+
+.entry-content p {
+    margin: 0;
 }
 
