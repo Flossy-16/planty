@@ -31,7 +31,7 @@ add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles', 15 );
 function add_admin_link($items, $args) {
     // Vérifie si l'utilisateur est connecté 
     if (is_user_logged_in()) {
-        $items .= '<li><a href="' . get_admin_url() . '">Admin</a></li>';
+        $items .= '<li class="admin-link"><a href="' . get_admin_url() . '" >Admin</a></li>';
     }
     return $items;
 }
