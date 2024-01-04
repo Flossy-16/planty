@@ -83,22 +83,68 @@ b, strong {
     font-weight: 800;
 }
 
-/* formulaire quantités à commander */
-.wpcf7-number {
+/* formulaire de commande */
+
+.text-parfum {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%,-50%);
+    color: white;
+    font-weight: 800;
+    font-size: 20px;
+    text-align: center;
+    line-height: normal;
+}
+
+.img-parfum {
+    position: relative;
+    width: 100%;
+}
+
+div.container {
+    border-bottom: solid white 1px;
+    padding-bottom: 50px;
+}
+
+div.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+div.container-parfum {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+p.quantite {
+    padding-top: 15px;
+    padding-left: 35%;
+    padding-right: 35%;
+}
+
+input.quantite.wpcf7-text {
+    border-radius: 0;
     text-align: center;
 }
 
-.quantite {
-    padding-left: 30%;
-    padding-right: 30%;  
-}
 
-
-/* formulaire de commande */
 .deux-colonnes {
     display: flex;
     flex-direction: row;
-    column-gap: 50px;
+    justify-content: space-between;
+    padding-top: 50px;
+    margin: auto;
+}
+
+h2.commande {
+    border-top: solid white 1px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin: auto;
 }
 
 h2.titre-formulaire {
@@ -108,7 +154,15 @@ h2.titre-formulaire {
 div.colonne2 {
     border-left: solid white 1px;
     padding-left: 50px;
+    width: 100%;
+
 }
+
+div.colonne1 {
+    width: 100%;
+    padding-right: 50px;
+}
+
 
 .label-formulaire {
     color:white;
@@ -129,6 +183,16 @@ div.colonne2 {
         padding-right: 30px;
     }
 
+    p.quantite {
+        padding-left: 40%;
+        padding-right: 40%;
+    }
+
+    div.colonne1 {
+        padding-right: 0;
+    }
+
+
 
 }
 
@@ -139,6 +203,10 @@ div.colonne2 {
         font-size: 15px;
     }
 
+    div.colonne1 {
+        padding-right: 0;
+    }
+
    
 } 
 
@@ -147,6 +215,10 @@ div.colonne2 {
     /*ajout marge lien admin menu mobile*/
     .admin-link {
         padding-left: 20px;
+    }
+
+    div.container {
+        flex-wrap: wrap;
     }
 
     .deux-colonnes {
